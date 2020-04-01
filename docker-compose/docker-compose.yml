@@ -1,0 +1,53 @@
+version: '2'
+
+networks:
+  commander-network:
+    driver: bridge
+
+services:
+
+#  backspin_postgres:
+#    container_name: postgres
+#    ports:
+#      - 127.0.0.1:5439:5432
+#    environment:
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_USER: user
+#      POSTGRES_DBNAME: dbname
+#    tty: true
+#    image: postgis:9.42.6
+#    volumes:
+#      - ./db:/var/lib/postgresql/backup/
+#      - /etc/localtime:/etc/localtime:ro
+#    stdin_open: true
+#    networks:
+#      - commander-network
+
+
+  rabbitmq:
+    container_name: rabbitmq
+    ports:
+      - 127.0.0.1:15672:15672
+      - 127.0.0.1:5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_PASS=user
+      - RABBITMQ_DEFAULT_USER=password
+    tty: true
+    image: rabbitmq:3.6-management
+    stdin_open: true
+    networks:
+      - commander-network
+
+
+#  redis:
+#    container_name: redis
+#    ports:
+#      - 6379:6379
+#    tty: true
+#    image: redis:3.2
+#    stdin_open: true
+#    networks:
+#      - commander-network
+
+volumes:
+  cloud_stream_data:
