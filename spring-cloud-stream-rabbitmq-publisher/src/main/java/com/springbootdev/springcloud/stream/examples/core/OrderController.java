@@ -1,5 +1,6 @@
 package com.springbootdev.springcloud.stream.examples.core;
 
+import com.example.dto.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,13 @@ public class OrderController
     @Autowired
     private Source source;
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @PostMapping("/orders/publish")
     public String publishOrder(@RequestBody Order order)
     {
         source.output().send(MessageBuilder.withPayload(order).build());
-        logger.info(order.toString());
+        LOGGER.info(order.toString());
         return "order_published";
     }
 }
